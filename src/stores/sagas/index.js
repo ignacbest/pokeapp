@@ -1,11 +1,13 @@
 import {
     all,
     fork
-  } from 'redux-saga/effects';
+} from 'redux-saga/effects';
 
-  export default function* rootSaga() {
-    yield all([
-      //fork(authSagas),
-    ]);
-  }
+import homeSagas from '../../features/Home/stores/sagas';
+
+export default function* rootSaga() {
+  yield all([
+    fork(homeSagas),
+  ]);
+}
   

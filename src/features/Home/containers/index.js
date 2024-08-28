@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Box,
@@ -9,34 +9,27 @@ import {
   Skeleton,
   Center,
 } from "native-base";
+import { useDispatch, useSelector } from 'react-redux';
+
 import Header from "../../../components/Header";
 
-import { getRandomNumber, pokemonName } from "../../../utils/index";
+import { loadPokemon } from "../stores/actions";
+import { pokemonName, showError } from "../../../utils/index";
 
 const HomeContainer = ({ navigation }) => {
-  const [pokemon, setPokemon] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const pokemon = useSelector(({ homeReducer }) => homeReducer.pokemon);
+  const loading = useSelector(({ homeReducer }) => homeReducer.isLoading);
+  console.log(pokemon)
 
   useEffect(() => {
-    randomPokemonId();
-  }, []);
-
-  const getPokemons = async (n) => {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${n}`);
-      const data = await response.json();
-      setPokemon(data);
-    } catch (error) {
-      console.log("error al obtener pokemones", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const randomPokemonId = () => {
-    const n = getRandomNumber();
-    return getPokemons(n);
-  };
+    dispatch(
+      loadPokemon(
+        undefined,
+        showError,
+      ),
+    );
+  }, [dispatch]);
 
   const goToFavoritesPokemon = () => {
     navigation.navigate("Favorites");
@@ -135,7 +128,7 @@ const HomeContainer = ({ navigation }) => {
           w={150}
           isLoading={loading}
           backgroundColor="orange.400"
-          onPress={randomPokemonId}
+          onPress={() => console.log('sortear')}
         >
           SORTEAR
         </Button>

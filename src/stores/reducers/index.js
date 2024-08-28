@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-//import commmonsReducer from './commons';
+import homeReducer from '../../features/Home/stores/reducers';
 
 const reducers = {
-  //commmonsReducer,
+  homeReducer,
 };
 
 const allReducers = combineReducers(reducers);
