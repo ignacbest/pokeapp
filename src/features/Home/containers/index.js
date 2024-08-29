@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   View,
   Box,
@@ -8,7 +8,6 @@ import {
   VStack,
   Skeleton,
   Center,
-  IconButton,
   Icon
 } from "native-base";
 import { MaterialIcons } from "react-native-vector-icons";
@@ -16,8 +15,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Header from "../../../components/Header";
 
-import { loadPokemon } from "../stores/actions";
-import { pokemonName, showError } from "../../../utils/index";
+import { loadPokemon, addFavoritePokemon } from "../stores/actions";
+
+import {
+  pokemonName,
+  showError,
+  showAlert
+ } from "../../../utils/index";
 
 const HomeContainer = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -38,6 +42,21 @@ const HomeContainer = ({ navigation }) => {
       loadPokemon(
         undefined,
         showError,
+      ),
+    );
+  };
+
+  const onSaveFavoritePokemon = useCallback((pokemon) => showAlert(
+    'POKEAPI',
+    '¿Quieres guardar este pokemon?',
+    () => onAddFavoritePokemon(pokemon),
+  ), [onAddFavoritePokemon]);
+
+  const onAddFavoritePokemon = (pokemon) => {
+    onNewPokemon();
+    dispatch(
+      addFavoritePokemon(
+        pokemon
       ),
     );
   };
@@ -91,18 +110,17 @@ const HomeContainer = ({ navigation }) => {
             borderWidth={0.5}
             padding={2}
           >
-          <IconButton
-            style={{ justifyContent: "flex-end"}}
-            icon={
+            <View
+              style={{justifyContent: "flex-end", flexDirection: 'row'}}
+            >
               <Icon
                 as={MaterialIcons}
                 name="favorite"
-                onPress={() => console.log('sadsd')}
-                size="sm"
+                onPress={() => onSaveFavoritePokemon(pokemon)}
+                size="xl"
                 color="red.500"
               />
-            }
-          />
+            </View>
             <View alignItems="center">
               <Image
                 source={{ uri: pokemon.sprites.front_default }}

@@ -1,3 +1,6 @@
+import {
+  Alert,
+} from 'react-native';
 import Toast from 'react-native-toast-message';
 
 export const pokemonName = (pokemonName) => {
@@ -20,5 +23,31 @@ export const showError = (error) => {
   const message = error.error_message || error.message || error;
   showToast(message);
 };
+
+export function showAlert(
+  title = 'POKEAPI',
+  message,
+  onAcceptPress,
+  onCancelPress,
+  cancelText = 'Cancelar',
+  acceptText = 'Aceptar',
+  isCancelable = true,
+) {
+  return Alert.alert(
+    title,
+    message,
+    [
+      {
+        text: acceptText,
+        onPress: onAcceptPress,
+      },
+      {
+        text: cancelText,
+        style: 'cancel',
+      },
+    ],
+    { cancelable: isCancelable },
+  );
+}
 
 export const DEFAULT_UNKNOWN_ERROR_MESSAGE = "¡Vaya! Hubo un error. Inténtalo de nuevo";
