@@ -10,7 +10,6 @@ import { DEFAULT_UNKNOWN_ERROR_MESSAGE, getRandomNumber } from '../../../../util
 
 function* loadPokemon({ payload }) {
   const {
-    successCallback,
     errorCallback,
   } = payload;
   try {
@@ -18,7 +17,6 @@ function* loadPokemon({ payload }) {
     const n = getRandomNumber();
     const data = yield call(getPokemon, n);
     yield put(HomeActions.setPokemon(data));
-    yield call(successCallback);
   } catch (error) {
     yield call(errorCallback, DEFAULT_UNKNOWN_ERROR_MESSAGE);
   } finally {

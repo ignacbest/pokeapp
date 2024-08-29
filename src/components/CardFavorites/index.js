@@ -1,5 +1,10 @@
 import React from "react";
-import { View, Box, Text, Image } from "native-base";
+import {
+  View,
+  Box,
+  Text,
+  Image,
+} from "native-base";
 
 import { pokemonName } from '../../utils/index';
 

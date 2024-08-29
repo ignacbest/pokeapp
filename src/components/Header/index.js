@@ -4,13 +4,10 @@ import {
   StatusBar,
   Image,
   HStack,
-  IconButton,
-  Icon,
 } from "native-base";
-import { MaterialIcons } from "react-native-vector-icons";
 import LogoPokemon from "../../../assets/images/logoo.png";
 
-const Header = ({ goToFavoritesPokemon, iconFavorite = true }) => {
+const Header = () => {
   return (
     <View>
       <StatusBar bg="#3700B3" barStyle="light-content" />
@@ -34,21 +31,6 @@ const Header = ({ goToFavoritesPokemon, iconFavorite = true }) => {
           </View>
         </HStack>
         <HStack>
-          {iconFavorite ? (
-            <IconButton
-              icon={
-                <Icon
-                  as={MaterialIcons}
-                  name="favorite"
-                  onPress={goToFavoritesPokemon}
-                  size="sm"
-                  color="white"
-                />
-              }
-            />
-          ) : (
-            <View />
-          )}
         </HStack>
       </HStack>
     </View>

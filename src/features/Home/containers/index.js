@@ -8,7 +8,10 @@ import {
   VStack,
   Skeleton,
   Center,
+  IconButton,
+  Icon
 } from "native-base";
+import { MaterialIcons } from "react-native-vector-icons";
 import { useDispatch, useSelector } from 'react-redux';
 
 import Header from "../../../components/Header";
@@ -20,7 +23,6 @@ const HomeContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const pokemon = useSelector(({ homeReducer }) => homeReducer.pokemon);
   const loading = useSelector(({ homeReducer }) => homeReducer.isLoading);
-  console.log(pokemon)
 
   useEffect(() => {
     dispatch(
@@ -31,8 +33,13 @@ const HomeContainer = ({ navigation }) => {
     );
   }, [dispatch]);
 
-  const goToFavoritesPokemon = () => {
-    navigation.navigate("Favorites");
+  const onNewPokemon = () => {
+    dispatch(
+      loadPokemon(
+        undefined,
+        showError,
+      ),
+    );
   };
 
   const isLoading = () => {
@@ -69,7 +76,7 @@ const HomeContainer = ({ navigation }) => {
 
   return (
     <View>
-      <Header goToFavoritesPokemon={goToFavoritesPokemon} />
+      <Header />
       {loading ? (
         isLoading()
       ) : (
@@ -84,6 +91,18 @@ const HomeContainer = ({ navigation }) => {
             borderWidth={0.5}
             padding={2}
           >
+          <IconButton
+            style={{ justifyContent: "flex-end"}}
+            icon={
+              <Icon
+                as={MaterialIcons}
+                name="favorite"
+                onPress={() => console.log('sadsd')}
+                size="sm"
+                color="red.500"
+              />
+            }
+          />
             <View alignItems="center">
               <Image
                 source={{ uri: pokemon.sprites.front_default }}
@@ -128,7 +147,7 @@ const HomeContainer = ({ navigation }) => {
           w={150}
           isLoading={loading}
           backgroundColor="orange.400"
-          onPress={() => console.log('sortear')}
+          onPress={onNewPokemon}
         >
           SORTEAR
         </Button>
