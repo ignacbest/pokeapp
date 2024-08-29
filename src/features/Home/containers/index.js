@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import {
   View,
   Box,
@@ -8,19 +8,25 @@ import {
   VStack,
   Skeleton,
   Center,
+  Icon
 } from "native-base";
+import { MaterialIcons } from "react-native-vector-icons";
 import { useDispatch, useSelector } from 'react-redux';
 
 import Header from "../../../components/Header";
 
-import { loadPokemon } from "../stores/actions";
-import { pokemonName, showError } from "../../../utils/index";
+import { loadPokemon, addFavoritePokemon } from "../stores/actions";
+
+import {
+  pokemonName,
+  showError,
+  showAlert
+ } from "../../../utils/index";
 
 const HomeContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const pokemon = useSelector(({ homeReducer }) => homeReducer.pokemon);
   const loading = useSelector(({ homeReducer }) => homeReducer.isLoading);
-  console.log(pokemon)
 
   useEffect(() => {
     dispatch(
@@ -31,8 +37,28 @@ const HomeContainer = ({ navigation }) => {
     );
   }, [dispatch]);
 
-  const goToFavoritesPokemon = () => {
-    navigation.navigate("Favorites");
+  const onNewPokemon = () => {
+    dispatch(
+      loadPokemon(
+        undefined,
+        showError,
+      ),
+    );
+  };
+
+  const onSaveFavoritePokemon = useCallback((pokemon) => showAlert(
+    'POKEAPI',
+    '¿Quieres guardar este pokemon?',
+    () => onAddFavoritePokemon(pokemon),
+  ), [onAddFavoritePokemon]);
+
+  const onAddFavoritePokemon = (pokemon) => {
+    onNewPokemon();
+    dispatch(
+      addFavoritePokemon(
+        pokemon
+      ),
+    );
   };
 
   const isLoading = () => {
@@ -69,7 +95,7 @@ const HomeContainer = ({ navigation }) => {
 
   return (
     <View>
-      <Header goToFavoritesPokemon={goToFavoritesPokemon} />
+      <Header />
       {loading ? (
         isLoading()
       ) : (
@@ -84,6 +110,17 @@ const HomeContainer = ({ navigation }) => {
             borderWidth={0.5}
             padding={2}
           >
+            <View
+              style={{justifyContent: "flex-end", flexDirection: 'row'}}
+            >
+              <Icon
+                as={MaterialIcons}
+                name="favorite"
+                onPress={() => onSaveFavoritePokemon(pokemon)}
+                size="xl"
+                color="red.500"
+              />
+            </View>
             <View alignItems="center">
               <Image
                 source={{ uri: pokemon.sprites.front_default }}
@@ -128,7 +165,7 @@ const HomeContainer = ({ navigation }) => {
           w={150}
           isLoading={loading}
           backgroundColor="orange.400"
-          onPress={() => console.log('sortear')}
+          onPress={onNewPokemon}
         >
           SORTEAR
         </Button>

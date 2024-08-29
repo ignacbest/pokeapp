@@ -1,7 +1,9 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import Home from '../features/Home/containers';
-import Settings from '../features/Settings/containers'
+import FavoritesPokemons from '../features/Favorites/containers';
+import Settings from '../features/Settings/containers';
 
 const TabNavigator = () => {
 
@@ -12,6 +14,7 @@ const TabNavigator = () => {
       headerShown: false,
     }}>
       <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Favorites" component={FavoritesPokemons} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   )

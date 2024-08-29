@@ -5,12 +5,13 @@ import {
 } from 'redux-saga/effects';
 
 import * as HomeActions from '../actions';
+import * as FavoriteActions from '../../../Favorites/stores/actions';
+
 import { getPokemon } from '../../../../services/home';
 import { DEFAULT_UNKNOWN_ERROR_MESSAGE, getRandomNumber } from '../../../../utils';
 
 function* loadPokemon({ payload }) {
   const {
-    successCallback,
     errorCallback,
   } = payload;
   try {
@@ -18,7 +19,6 @@ function* loadPokemon({ payload }) {
     const n = getRandomNumber();
     const data = yield call(getPokemon, n);
     yield put(HomeActions.setPokemon(data));
-    yield call(successCallback);
   } catch (error) {
     yield call(errorCallback, DEFAULT_UNKNOWN_ERROR_MESSAGE);
   } finally {
@@ -26,6 +26,12 @@ function* loadPokemon({ payload }) {
   }
 }
 
+function* setFavoritePokemon({ payload }) {
+  const a = [payload]
+  yield put(FavoriteActions.addFavoritePokemon(a));
+}
+
 export default function* homeSagas() {
   yield takeLatest(HomeActions.LOAD_POKEMON, loadPokemon);
+  yield takeLatest(HomeActions.ADD_FAVORITE_POKEMON, setFavoritePokemon);
 }

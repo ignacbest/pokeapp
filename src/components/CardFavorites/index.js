@@ -1,5 +1,10 @@
 import React from "react";
-import { View, Box, Text, Image } from "native-base";
+import {
+  View,
+  Box,
+  Text,
+  Image,
+} from "native-base";
 
 import { pokemonName } from '../../utils/index';
 
@@ -17,7 +22,7 @@ const Card = ({ pokemon }) => {
         flexDirection="row"
       >
         <Image
-          source={pokemonLogo}
+          source={pokemonLogo || { uri: pokemon.sprites.front_default }}
           h={120}
           w={120}
           backgroundColor="orange.400"
@@ -27,7 +32,7 @@ const Card = ({ pokemon }) => {
         />
         <View flex={1} justifyContent="center" marginLeft={3}>
           <Text fontWeight="bold" fontSize={16} textAlign="center">
-            Mewtwo
+            {/* {pokemonName(pokemon.name)} */}
           </Text>
           <View
             flexDirection="row"
@@ -41,7 +46,7 @@ const Card = ({ pokemon }) => {
                   {`HP: `}
                 </Text>
                 <Text color="gray.500" numberOfLines={1}>
-                  999
+                  {/* {pokemon.stats[0].base_stat} */}
                 </Text>
               </View>
               <View flexDirection="row">
@@ -49,7 +54,7 @@ const Card = ({ pokemon }) => {
                   {`Attack: `}
                 </Text>
                 <Text color="gray.500" numberOfLines={1}>
-                  999
+                  {/* {pokemon.stats[1].base_stat} */}
                 </Text>
               </View>
               <View flexDirection="row">
@@ -57,7 +62,7 @@ const Card = ({ pokemon }) => {
                   {`Defense: `}
                 </Text>
                 <Text color="gray.500" numberOfLines={1}>
-                  1
+                  {/* {pokemon.stats[2].base_stat} */}
                 </Text>
               </View>
             </View>
@@ -67,7 +72,7 @@ const Card = ({ pokemon }) => {
                   {`Ability: `}
                 </Text>
                 <Text color="gray.500" numberOfLines={1}>
-                  Extraccion de cerebro
+                {/* {pokemonName(pokemon.abilities[0].ability.name)} */}
                 </Text>
               </View>
               <View flexDirection="row">
@@ -75,7 +80,7 @@ const Card = ({ pokemon }) => {
                   {`Type: `}
                 </Text>
                 <Text color="gray.500" numberOfLines={1}>
-                  Alien
+                  {/* {pokemonName(pokemon.types[0].type.name)} */}
                 </Text>
               </View>
             </View>
