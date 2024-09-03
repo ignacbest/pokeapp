@@ -3,6 +3,7 @@ import * as FavoriteActions from '../actions';
 const initialState = {
   pokemon: [],
   isLoading: true,
+  isRefreshing: true,
 };
 
 const favoriteReducer = (state = initialState, action) => {
