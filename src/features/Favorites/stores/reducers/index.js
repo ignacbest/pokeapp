@@ -3,7 +3,6 @@ import * as FavoriteActions from '../actions';
 const initialState = {
   pokemon: [],
   isLoading: true,
-  isRefreshing: true,
 };
 
 const favoriteReducer = (state = initialState, action) => {
@@ -13,6 +12,15 @@ const favoriteReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemon: newPokemonList,
+      };
+    }
+    case FavoriteActions.REMOVE_FAVORITE_POKEMON: {
+      const updatedPokemonList = state.pokemon.filter(
+        (poke) => poke.id !== action.payload
+      );
+      return {
+        ...state,
+        pokemon: updatedPokemonList,
       };
     }
     default:

@@ -4,15 +4,16 @@ import {
   Box,
   Text,
   Image,
+  Icon
 } from "native-base";
-
+import { MaterialIcons } from "react-native-vector-icons";
 import { pokemonName } from '../../utils/index';
 
-const pokemonLogo = require("../../../assets/images/150.png");
+//const pokemonLogo = require("../../../assets/images/150.png");
 
-const Card = ({ pokemon }) => {
+const Card = ({ pokemon, deleteFavoritePokemon }) => {
   return (
-    <View padding={5}>
+    <View padding={3}>
       <Box
         rounded="lg"
         backgroundColor="orange.100"
@@ -31,9 +32,21 @@ const Card = ({ pokemon }) => {
           alt="logo"
         />
         <View flex={1} justifyContent="center" marginLeft={3}>
+        <View
+          style={{flexDirection: 'row', justifyContent: 'space-between'}}
+        >
           <Text fontWeight="bold" fontSize={16} textAlign="center">
             {pokemonName(pokemon.name)}
           </Text>
+          <Icon
+            style={{marginTop: 1}}
+            as={MaterialIcons}
+            name="delete"
+            onPress={() => deleteFavoritePokemon(pokemon)}
+            size="md"
+            color="red.500"
+          />
+        </View>
           <View
             flexDirection="row"
             justifyContent="space-between"
@@ -71,7 +84,7 @@ const Card = ({ pokemon }) => {
                 <Text fontWeight="bold" numberOfLines={2}>
                   {`Ability: `}
                 </Text>
-                <Text color="gray.500" numberOfLines={1}>
+                <Text color="gray.500" numberOfLines={2} style={{ width: '60%' }}>
                 {pokemonName(pokemon.abilities[0].ability.name)}
                 </Text>
               </View>

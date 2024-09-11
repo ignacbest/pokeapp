@@ -15,6 +15,8 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'gray',
     }}>
       <Tab.Screen
         name="Home"
@@ -22,19 +24,19 @@ const TabNavigator = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: () => (
-            <Icon as={MaterialIcons} name="home" color="blue.500" size={5} />
+            <Icon as={MaterialIcons} name="home" color="tomato" size={5} />
           ),
-        }}  
-        />
+        }}
+      />
       <Tab.Screen
         name="Favorites"
         component={FavoritesPokemons}
         options={{
           tabBarLabel: 'Favorites',
           tabBarIcon: () => (
-            <Icon as={MaterialIcons} name="favorite" color="blue.500" size={5} />
+            <Icon as={MaterialIcons} name="favorite" color="tomato" size={5} />
           ),
-        }}  
+        }}
       />
       <Tab.Screen
        name="Settings"
@@ -42,7 +44,7 @@ const TabNavigator = () => {
        options={{
          tabBarLabel: 'Settings',
          tabBarIcon: () => (
-           <Icon as={MaterialIcons} name="settings" color="blue.500" size={5} />
+           <Icon as={MaterialIcons} name="settings" color="tomato" size={5} />
          ),
        }}  
      />
