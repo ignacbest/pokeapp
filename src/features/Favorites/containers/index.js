@@ -1,47 +1,51 @@
 import React, {
-  useEffect,
-  useState,
+  useCallback,
 } from 'react';
-import { ActivityIndicator } from 'react-native';
 import { View, Skeleton } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlashList } from '@shopify/flash-list';
-// import {
-//   loadNews,
-//   refreshNews as refreshNewsAction,
-// } from '../../stores/actions';
 
 import BoxContainer from '../../../components/BoxContainer';
 import EmptyView from '../../../components/EmptyView';
 import Header from "../../../components/Header";
 import CardFavorites from "../../../components/CardFavorites";
+import { doDeletePokemon } from '../stores/actions';
+import {
+  showError,
+  showAlert
+ } from "../../../utils/index";
 
 import styles from './styles';
 
 const FavoritesPokemon = () => {
+  const dispatch = useDispatch();
 
   const pokemon = useSelector(({ favoriteReducer }) => favoriteReducer.pokemon);
   const isLoading = useSelector(({ favoriteReducer }) => favoriteReducer.isLoading);
-  // const isRefreshing = useSelector(({ favoriteReducer }) => favoriteReducer.isRefreshing);
 
   const keyExtractor = (item) => `${item.id}`;
 
-  // const renderLoader = () => {
-  //   if (loading) {
-  //     return (
-  //       <View style={styles.activity}>
-  //         <ActivityIndicator size="large" color="gray" />
-  //       </View>
-  //     );
-  //   }
-  //   return <View />;
-  // };
+  const deleteFavoritePokemon = useCallback((pokemon) => showAlert(
+    'POKEAPI',
+    '¿Quieres eliminar este pokemon?',
+    () => onDeleteFavoritePokemon(pokemon),
+  ), [onDeleteFavoritePokemon]);
+
+  const onDeleteFavoritePokemon = (pokemon) => {
+    dispatch(
+      doDeletePokemon(
+        pokemon.id
+      ),
+    );
+  };
+
 
   const renderPokemons= ({ item }) => {
     return (
       <View style={styles.listItem}>
         <CardFavorites 
           pokemon={item}
+          deleteFavoritePokemon={deleteFavoritePokemon}
         />
       </View>
     );
@@ -97,15 +101,10 @@ const FavoritesPokemon = () => {
       <Header iconFavorite={false} />
       <FlashList
         data={pokemon}
-        // refreshing={isRefreshing}
-        // onRefresh={refreshNews}
         renderItem={renderPokemons}
-        // onEndReached={loadMoreNews}
-        // onEndReachedThreshold={0.5}
         showsVerticalScrollIndicator={false}
         keyExtractor={keyExtractor}
         ListEmptyComponent={renderEmptyComponent}
-        //ListFooterComponent={renderLoader}
         contentContainerStyle={styles.listContentContainerStyle}
         estimatedItemSize={125}
       />

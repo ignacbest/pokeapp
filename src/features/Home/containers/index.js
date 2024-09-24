@@ -150,10 +150,10 @@ const HomeContainer = ({ navigation }) => {
               </View>
               <View>
                 <Text fontWeight="semibold">
-                  Type: {pokemonName(pokemon.types[0].type.name)}
+                  Ability: {pokemonName(pokemon.abilities[0].ability.name)}
                 </Text>
                 <Text fontWeight="semibold">
-                  Ability: {pokemonName(pokemon.abilities[0].ability.name)}
+                  Type: {pokemonName(pokemon.types[0].type.name)}
                 </Text>
               </View>
             </View>
