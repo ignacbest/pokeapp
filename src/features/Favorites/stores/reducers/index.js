@@ -23,6 +23,12 @@ const favoriteReducer = (state = initialState, action) => {
         pokemon: updatedPokemonList,
       };
     }
+    case FavoriteActions.SET_IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.payload,
+      };
+    }
     default:
       return state;
   }

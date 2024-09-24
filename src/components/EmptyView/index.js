@@ -21,7 +21,7 @@ const EmptyView = ({
         as={MaterialCommunityIcons}
         name="emoticon-sad-outline"
         size={200}
-        color="background.200"
+        color="red.500"
       />
       <View style={styles.textConatiner}>
         <ScreenTitle size="xl">

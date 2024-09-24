@@ -9,7 +9,7 @@ import BoxContainer from '../../../components/BoxContainer';
 import EmptyView from '../../../components/EmptyView';
 import Header from "../../../components/Header";
 import CardFavorites from "../../../components/CardFavorites";
-import { deletePokemon } from '../stores/actions';
+import { doDeletePokemon } from '../stores/actions';
 import {
   showError,
   showAlert
@@ -33,7 +33,7 @@ const FavoritesPokemon = () => {
 
   const onDeleteFavoritePokemon = (pokemon) => {
     dispatch(
-      deletePokemon(
+      doDeletePokemon(
         pokemon.id
       ),
     );
