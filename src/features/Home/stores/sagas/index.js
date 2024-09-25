@@ -8,7 +8,11 @@ import * as HomeActions from '../actions';
 import * as FavoriteActions from '../../../Favorites/stores/actions';
 
 import { getPokemon } from '../../../../services/home';
-import { DEFAULT_UNKNOWN_ERROR_MESSAGE, getRandomNumber } from '../../../../utils';
+import {
+  DEFAULT_UNKNOWN_ERROR_MESSAGE,
+  ERROR_MESSAGE_SEARCH_POKEMON,
+  getRandomNumber
+} from '../../../../utils';
 
 function* loadPokemon({ payload }) {
   const {
@@ -26,6 +30,22 @@ function* loadPokemon({ payload }) {
   }
 }
 
+function* doSearchPokemon({ payload }) {
+  const {
+    name,
+    errorCallBack,
+  } = payload;
+  try {
+    yield put(HomeActions.setIsLoading(true));
+    const pokemon = yield call(getPokemon, name);
+    yield put(HomeActions.setPokemon(pokemon));
+  } catch (error) {
+    yield call(errorCallBack, ERROR_MESSAGE_SEARCH_POKEMON);
+  } finally {
+    yield put(HomeActions.setIsLoading(false));
+  }
+}
+
 function* setFavoritePokemon({ payload }) {
   const a = [payload]
   yield put(FavoriteActions.addFavoritePokemon(a));
@@ -33,5 +53,6 @@ function* setFavoritePokemon({ payload }) {
 
 export default function* homeSagas() {
   yield takeLatest(HomeActions.LOAD_POKEMON, loadPokemon);
+  yield takeLatest(HomeActions.SEARCH_POKEMON, doSearchPokemon);
   yield takeLatest(HomeActions.ADD_FAVORITE_POKEMON, setFavoritePokemon);
 }
