@@ -17,6 +17,7 @@ const TabNavigator = () => {
       headerShown: false,
       tabBarActiveTintColor: 'tomato',
       tabBarInactiveTintColor: 'gray',
+      tabBarHideOnKeyboard: true
     }}>
       <Tab.Screen
         name="Home"

@@ -51,3 +51,4 @@ export function showAlert(
 }
 
 export const DEFAULT_UNKNOWN_ERROR_MESSAGE = "¡Vaya! Hubo un error. Inténtalo de nuevo";
+export const ERROR_MESSAGE_SEARCH_POKEMON = "No se encontró ningún Pokémon con ese nombre";
