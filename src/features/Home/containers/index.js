@@ -137,6 +137,7 @@ const HomeContainer = ({ navigation }) => {
             blurOnSubmit={false}
             placeholder="Buscar pokemon"
             onSubmitEditing={handleSubmit(onSearchPokemon)}
+            onSubmit={onSearchPokemon}
             autoCapitalize="none"
             rules={{
               validate: (value) => value.trim() !== '' || 'El campo no puede estar vacío',
