@@ -1,5 +1,12 @@
 import React, { forwardRef } from 'react';
-import { View, Input, Text } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import {
+  View,
+  Input,
+  Text,
+  Icon
+} from 'native-base';
 
 import styles from './styles';
 import RemovableView from '../RemovableView';
@@ -16,8 +23,23 @@ const SingleInput = forwardRef((props, ref) => {
     multiline,
     labelColor,
     labelFontSize,
+    onSubmit,
     ...rest
   } = props;
+
+
+  const renderIconSearch = () => {
+    return (
+      <TouchableOpacity onPress={onSubmit}>
+        <Icon
+          as={MaterialIcons}
+          name="search"
+          size="xl"
+          color="gray.400"
+        />
+      </TouchableOpacity>
+    )
+  }
 
   return (
     <View style={[styles.container, containerStyle]}>
@@ -44,6 +66,7 @@ const SingleInput = forwardRef((props, ref) => {
         _focus={{
           ...inputStyle,
         }}
+        InputRightElement={renderIconSearch()}
         _invalid={styles.invalid}
         multiline={multiline}
         {...rest}
